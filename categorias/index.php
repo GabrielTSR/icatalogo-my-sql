@@ -1,12 +1,12 @@
 <?php
 
-    session_start();
+session_start();
 
-    require('../database/conexao.php');
+require('../database/conexao.php');
 
-    $sql = "SELECT * FROM tbl_categoria";
+$sql = "SELECT * FROM tbl_categoria";
 
-    $resultado = mysqli_query($conexao, $sql);
+$resultado = mysqli_query($conexao, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -65,6 +65,7 @@
                     <div class="card-categorias">
                     <?=$categoria['descricao']?>
                         <img onclick="deletar(<?=$categoria['id']?>)" src="https://icons.veryicon.com/png/o/construction-tools/coca-design/delete-189.png" />
+                        <img onclick="javascript: window.location = 'editar.php?id=<?=$categoria['id']?>'" src="https://icons.veryicon.com/png/128/internet--web/three-body-project-icon/edit-60.png" />
                     </div>
 
                 <?php
