@@ -1,16 +1,12 @@
 <?php
 
+    session_start();
+
     require('../database/conexao.php');
 
     $sql = "SELECT * FROM tbl_categoria";
 
     $resultado = mysqli_query($conexao, $sql);
-
-    // echo '<pre>';
-    // var_dump($resultado);
-    // die;
-    // echo '</pre>';
-
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +31,21 @@
                 <form class="form-categoria" method="POST" action="./acoes.php">
                     <input type="hidden" name="acao" value="inserir" />
                     <h1 class="span2">Adicionar Categorias</h1>
+                    
                     <ul>
+                    <?php
+
+                        if(isset($_SESSION['erros'])):
+                            foreach ($_SESSION['erros'] as $erro):
+                            ?>
+                                <li><?=$erro?></li>
+                            <?php
+                            endforeach;
+                            //Limpa a variável de sessão
+                            session_unset();
+                            session_destroy();
+                        endif;
+                        ?>
 
                     </ul>
                     <div class="input-group span2">
@@ -46,23 +56,20 @@
                     <button>Salvar</button>
                 </form>
 
-                <?php
-
-                    while($categoria = mysqli_fetch_array($resultado)){
-
-                        echo $categoria['descricao'];
-
-                    }
-
-                    exit;
-
-                ?>
-
                 <h1>Lista de Categorias</h1>
 
+                <?php
+                    while($categoria = mysqli_fetch_array($resultado)){
+                ?>
+
                     <div class="card-categorias">
-                        <img onclick="deletar()" src="https://icons.veryicon.com/png/o/construction-tools/coca-design/delete-189.png" />
+                    <?=$categoria['descricao']?>
+                        <img onclick="deletar(<?=$categoria['id']?>)" src="https://icons.veryicon.com/png/o/construction-tools/coca-design/delete-189.png" />
                     </div>
+
+                <?php
+                    }
+                ?>
 
                 <form id="form-deletar" method="POST" action="./acoes.php">
                     <input type="hidden" name="acao" value="deletar" />
