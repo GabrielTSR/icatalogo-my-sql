@@ -1,3 +1,15 @@
+<?php
+
+//CONEXÃO COM O BANCO DE DADOS
+
+require('../../database/conexao.php');
+/*
+QUERY SQL
+EXECUTA O QUERY SQL NA BASE DE DADOS*/
+$sql = "SELECT * FROM tbl_categoria";
+$resultado = mysqli_query($conexao, $sql);
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -69,8 +81,14 @@
             <label for="categoria">Categoria</label>
             <select id="categoria" name="categoria" required>
               <option value="">SELECIONE</option>
-              
-                <option value=""></option>
+              <!-- INICIO DA LISTAGEM DE CATEGORIAS VINDAS DO BANCO -->
+              <?php
+
+              while ($categoria = mysqli_fetch_array($resultado)):
+              ?>
+              <option value="<?=$categoria['id']?>"><?=$categoria['descricao']?></option>
+              <?php endwhile?>
+              <!-- INICIO DA LISTAGEM DE CATEGORIAS VINDAS DO BANCO -->
               
             </select>
 
