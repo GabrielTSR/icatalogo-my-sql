@@ -48,12 +48,12 @@ $resultado = mysqli_query($conexao, $sql);
 
           <div class="input-group">
             <label for="peso">Peso</label>
-            <input type="text" name="peso" id="peso" required>
+            <input type="number" name="peso" id="peso" required>
           </div>
 
           <div class="input-group">
             <label for="quantidade">Quantidade</label>
-            <input type="text" name="quantidade" id="quantidade" required>
+            <input type="number" name="quantidade" id="quantidade" required>
           </div>
 
           <div class="input-group">
@@ -68,12 +68,12 @@ $resultado = mysqli_query($conexao, $sql);
 
           <div class="input-group">
             <label for="valor">Valor</label>
-            <input type="text" name="valor" id="valor" required>
+            <input type="number" name="valor" id="valor" required>
           </div>
 
           <div class="input-group">
             <label for="desconto">Desconto</label>
-            <input type="text" name="desconto" id="desconto">
+            <input type="number" name="desconto" id="desconto">
           </div>
 
           <div class="input-group">
