@@ -1,3 +1,16 @@
+<?php
+    require('../database/conexao.php');
+
+    $sql = "SELECT p.*, c.descricao FROM tbl_produto p
+    INNER JOIN tbl_categoria c ON
+    p.categoria_id = c.id;";
+
+    $resultado = mysqli_query($conexao, $sql);
+
+    //TESTE DE SELEÇÃO DE DADOS:
+    // var_dump($resultado);exit;
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -32,6 +45,24 @@
 
                 <!-- LISTAGEM DE PRODUTOS (INICIO) -->
 
+                <?php
+                    while($produto = mysqli_fetch_array($resultado)):
+
+                        $valor = $produto["valor"];
+                        $desconto = $produto["desconto"];
+                        $valorDesconto = 0;//Apenas declarando valor desconto
+
+                        if($desconto > 0) {
+                            $valorDesconto = ($desconto / 100) * $valor;
+                        }
+
+                        $qtdParcelas = $valor > 1000 ? 12 : 6;
+                        $valorComDesconto = $valor - $valorDesconto;
+                        $valor -= $valorDesconto;
+
+                        $valorParcela = $valorComDesconto / $qtdParcelas;
+                ?>
+
                 <article class="card-produto">
 
                        <div class="acoes-produtos">
@@ -40,31 +71,32 @@
                     </div>
     
                 <figure>
-                     <img src="" />
+                     <img src="fotos/<?=$produto["imagem"]?>"/>
                 </figure>
 
                 <section>
 
                     <span class="preco">
-                        R$ 
-                        <em>% off</em>
+                        R$ <?=number_format($valorComDesconto, 2, ',', '.')?>
+                        <em><?=$desconto?>% off</em>
                     </span>
 
                     <span class="parcelamento">ou em
                         <em>
-                        x R$ sem juros
+                        <?=$qtdParcelas?>x R$<?=number_format($valorParcela, 2, ",", ".")?> sem juros
                         </em>
                     </span>
 
-                    <span class="descricao"></span>
+                    <span class="descricao"><?=$produto["descricao"]?></span>
 
                     <span class="categoria">
-                        <em></em>
+                        <em><?=$produto["descricao"]?></em>
                      </span>
 
                     </section>
 
                 </article>
+                <?php endwhile ?>
 
                 <!-- LISTAGEM DE PRODUTOS (FIM) -->
 
