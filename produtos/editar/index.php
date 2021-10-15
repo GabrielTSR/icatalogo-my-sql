@@ -33,37 +33,37 @@
 
           <div class="input-group span2">
             <label for="descricao">Descrição</label>
-            <input type="text" name="descricao" value="" id="descricao" required>
+            <input type="text" name="descricao" value="<?=$_POST['descricao']?>" id="descricao" required>
           </div>
 
           <div class="input-group">
             <label for="peso">Peso</label>
-            <input type="text" name="peso" value="" id="peso" required>
+            <input type="text" name="peso" value="<?=$_POST['peso']?>" id="peso" required>
           </div>
 
           <div class="input-group">
             <label for="quantidade">Quantidade</label>
-            <input type="text" name="quantidade" value="" id="quantidade" required>
+            <input type="text" name="quantidade" value="<?=$_POST['quantidade']?>" id="quantidade" required>
           </div>
 
           <div class="input-group">
             <label for="cor">Cor</label>
-            <input type="text" name="cor" value="" id="cor" required>
+            <input type="text" name="cor" value="<?=$_POST['cor']?>" id="cor" required>
           </div>
 
           <div class="input-group">
             <label for="tamanho">Tamanho</label>
-            <input type="text" value="" name="tamanho" id="tamanho">
+            <input type="text" value="<?=$_POST['tamanho']?>" name="tamanho" id="tamanho">
           </div>
 
           <div class="input-group">
             <label for="valor">Valor</label>
-            <input type="text" name="valor" value="" id="valor" required>
+            <input type="text" name="valor" value="<?=$_POST['valor']?>" id="valor" required>
           </div>
 
           <div class="input-group">
             <label for="desconto">Desconto</label>
-            <input type="text" name="desconto" value="" id="desconto">
+            <input type="text" name="desconto" value="<?=$_POST['desconto']?>" id="desconto">
           </div>
 
           <div class="input-group">

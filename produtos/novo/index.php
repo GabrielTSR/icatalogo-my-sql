@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 //CONEXÃO COM O BANCO DE DADOS
 
 require('../../database/conexao.php');
@@ -38,7 +40,16 @@ $resultado = mysqli_query($conexao, $sql);
           <h1>Cadastro de produto</h1>
 
           <ul>
+              <?php
 
+              if(isset($_SESSION['erros']) ) {
+                foreach($_SESSION['erros'] as $erro) {
+                  echo "<li> $erro </li>";
+                }
+                unset($_SESSION['erros']);
+              }
+              
+              ?>
           </ul>
 
           <div class="input-group span2">
@@ -63,7 +74,7 @@ $resultado = mysqli_query($conexao, $sql);
 
           <div class="input-group">
             <label for="tamanho">Tamanho</label>
-            <input type="text" name="tamanho" id="tamanho">
+            <input type="text" name="tamanho" id="tamanho" required>
           </div>
 
           <div class="input-group">
@@ -73,7 +84,7 @@ $resultado = mysqli_query($conexao, $sql);
 
           <div class="input-group">
             <label for="desconto">Desconto</label>
-            <input type="number" name="desconto" id="desconto">
+            <input type="number" name="desconto" id="desconto" required>
           </div>
 
           <div class="input-group">
@@ -96,7 +107,7 @@ $resultado = mysqli_query($conexao, $sql);
 
           <div class="input-group">
             <label for="categoria">Foto</label>
-            <input type="file" name="foto" id="foto" accept="image/*" />
+            <input type="file" name="foto" id="foto" accept="image/*" required/>
           </div>
 
           <button onclick="javascript:window.location.href = '../'">Cancelar</button>
