@@ -1,14 +1,21 @@
 <?php
 
-session_start();
+    session_start();
 
-require('../database/conexao.php');
+    require('../database/conexao.php');
 
-$sql = "SELECT * FROM tbl_categoria";
+    $sql = "SELECT * FROM tbl_categoria";
 
-$resultado = mysqli_query($conexao, $sql);
+    $resultado = mysqli_query($conexao, $sql);
+
+    // $categoria = mysqli_fetch_array($resultado);
+
+    // echo '<pre>';
+    // var_dump($categoria);
+    // echo '</pre>';
+    // exit;
+
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -34,20 +41,27 @@ $resultado = mysqli_query($conexao, $sql);
                     
                     <ul>
                     <?php
+                        if(isset($_SESSION["erros"])){
 
-                        if(isset($_SESSION['erros'])):
-                            foreach ($_SESSION['erros'] as $erro):
-                            ?>
-                                <li><?=$erro?></li>
-                            <?php
-                            endforeach;
-                            //Limpa a variável de sessão
-                            session_unset();
-                            session_destroy();
-                        endif;
-                        ?>
+                            foreach ($_SESSION["erros"] as $erro) {
+                                
+                    ?>
 
+                        <li><?php echo $erro?></li>
+
+                    <?php
+                        }//fim do foreach
+
+                        //Limpa a variável de sessão
+                        session_unset();
+                        
+                        //Destroi a sessão
+                        session_destroy();
+
+                    }//fim do if 
+                    ?>
                     </ul>
+
                     <div class="input-group span2">
                         <label for="descricao">Descrição</label>
                         <input type="text" name="descricao" id="descricao"/>
@@ -55,22 +69,21 @@ $resultado = mysqli_query($conexao, $sql);
                     <button type="button" onclick="javascript:window.location.href = '../produtos/'">Cancelar</button>
                     <button>Salvar</button>
                 </form>
-
                 <h1>Lista de Categorias</h1>
 
-                <?php
-                    while($categoria = mysqli_fetch_array($resultado)){
-                ?>
+                    <?php
+                    
+                        while($categoria = mysqli_fetch_array($resultado)){
+
+                    ?>
 
                     <div class="card-categorias">
-                    <?=$categoria['descricao']?>
-                        <img onclick="deletar(<?=$categoria['id']?>)" src="https://icons.veryicon.com/png/o/construction-tools/coca-design/delete-189.png" />
-                        <img onclick="javascript: window.location = 'editar.php?id=<?=$categoria['id']?>'" src="https://icons.veryicon.com/png/128/internet--web/three-body-project-icon/edit-60.png" />
+                        <?php echo $categoria["descricao"]; ?>
+                        <img onclick="deletar(<?php echo $categoria['id']; ?>)" src="https://icons.veryicon.com/png/o/construction-tools/coca-design/delete-189.png" />
+                        <img onclick="javascript: window.location = 'editar.php?id=<?php echo $categoria['id']; ?>'" src="https://icons.veryicon.com/png/o/leisure/weight-with-linear-icon/edit-65.png" />
                     </div>
 
-                <?php
-                    }
-                ?>
+                    <?php } ?>
 
                 <form id="form-deletar" method="POST" action="./acoes.php">
                     <input type="hidden" name="acao" value="deletar" />
