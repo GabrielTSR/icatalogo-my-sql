@@ -1,17 +1,21 @@
 
 <?php
+session_start();
 
-$raiz = "/gabriel-tavares/php_projects/aula-13/senai-icatalogo-mysqli-alunos";
+ $link = $_SERVER['PHP_SELF'];
+ $link_array = explode('/',$link);
+ $diretorio_principal = $link_array[1];
+$raiz = "/$diretorio_principal/php_projects/aula-13/senai-icatalogo-mysqli-alunos";
 
 
 ?>
 
-<link href="<?php echo $raiz?>/componentes/header/header.css" rel="stylesheet" />
+<link href="<?= $raiz?>/componentes/header/header.css" rel="stylesheet" />
 
 <header class="header">
 
     <figure>
-        <a href="/produtos">
+        <a href="<?= $raiz?>">
             <img src="<?php echo $raiz?>/imgs/logo.png" />
         </a>
     </figure>
@@ -26,7 +30,7 @@ $raiz = "/gabriel-tavares/php_projects/aula-13/senai-icatalogo-mysqli-alunos";
         </nav>
         <div id="container-login" class="container-login">
             <h1>Fazer Login</h1>
-            <form method="POST" action="/componentes/header/acoesLogin.php">
+            <form method="POST" action="<?=$raiz?>/componentes/header/acoesLogin.php">
                 <input type="hidden" name="acao" value="login" />
                 <input type="text" name="usuario" placeholder="Usuário" />
                 <input type="password" name="senha" placeholder="Senha" />
@@ -41,7 +45,7 @@ $raiz = "/gabriel-tavares/php_projects/aula-13/senai-icatalogo-mysqli-alunos";
                 <a id="menu-admin" onclick="logout()">Sair</a>
             </ul>
         </nav>
-        <form id="form-logout" style="display:none" method="POST" action="/componentes/header/acoesLogin.php">
+        <form id="form-logout" style="display:none" method="POST" action="<?=$raiz?>/componentes/header/acoesLogin.php">
             <input type="hidden" name="acao" value="logout" />
         </form>
     <?php
