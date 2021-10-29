@@ -12,14 +12,13 @@ if (isset($_POST['acao'])){
         
     switch ($acao) {
         case 'login':
+            
             realizarLogin($usuario, $senha, $conexao);
             break;
 
 
         case 'logout':
-            echo 'chego aq';
             session_destroy();
-            return header("Location: ../../produtos");
             break;
 
         
@@ -32,13 +31,13 @@ if (isset($_POST['acao'])){
 header("Location: ../../produtos");
 
 function realizarLogin($usuario, $senha, $conexao) {
-    $sql = "SELECT * FROM tbl_administrador WHERE usuario = '$usuario' AND senha = '$senha'";
+    $sql = "SELECT * FROM tbl_administrador WHERE usuario = '$usuario'";
 
     $resultado = mysqli_query($conexao, $sql);
 
     $dadosUsuario = mysqli_fetch_array($resultado);
 
-    if (isset($dadosUsuario['usuario']) && isset($dadosUsuario['senha'])) {
+    if (isset($dadosUsuario['usuario']) && isset($dadosUsuario['senha']) && password_verify($senha, $dadosUsuario['senha'])) {
         $_SESSION['usuario'] = $usuario;
         $_SESSION['id'] = session_id();
         $_SESSION['data_hora'] = date('d/m/Y - h:i:s');

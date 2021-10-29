@@ -1,6 +1,6 @@
-
 <?php
-session_start();
+
+!isset($_SESSION) ? session_start(): false;
 
  $link = $_SERVER['PHP_SELF'];
  $link_array = explode('/',$link);
